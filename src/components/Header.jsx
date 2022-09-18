@@ -1,9 +1,26 @@
 import React from "react";
+import { useState } from "react";
 import { useLocation, useNavigate } from "react-router";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useEffect } from "react";
 
 export default function Header() {
   const location = useLocation();
   const navigate = useNavigate();
+
+  const [pageState, setPageState] = useState("Sign In");
+  const auth = getAuth();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if(user) {
+        setPageState("Profile")
+      }
+      else {
+        setPageState("Sign In")
+      }
+    })
+  }, [auth]);
 
   function matchPathRoute(route) {
     if (route === location.pathname) {
@@ -42,10 +59,10 @@ export default function Header() {
             
             <li
               className={`cursor-pointer py-3 text-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent
-                ${matchPathRoute("/sign-in") && "text-black border-b-red-500"}`}
-                onClick={() => navigate("/sign-in")}
+                ${(matchPathRoute("/sign-in") || matchPathRoute("/profile")) && "text-black border-b-red-500"}`}
+                onClick={() => navigate("/profile")}
             >
-              Sign In
+              { pageState }
             </li>
           </ul>
         </div>
