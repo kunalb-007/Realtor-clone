@@ -5,6 +5,8 @@ import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { db } from "../firebase";
 import { doc, updateDoc } from "firebase/firestore";
+import { FcHome } from "react-icons/fc";
+import { Link } from "react-router-dom";
 
 export default function Profile() {
   const auth = getAuth();
@@ -33,7 +35,7 @@ export default function Profile() {
 
   async function onSubmit() {
     try {
-      if(auth.currentUser.displayName !== name) {
+      if (auth.currentUser.displayName !== name) {
         // update display name in firebase auth
         await updateProfile(auth.currentUser, {
           displayName: name,
@@ -48,7 +50,7 @@ export default function Profile() {
 
       toast.success("Profile details are updated");
     } catch (error) {
-      toast.error("Could not update the profile details.")
+      toast.error("Could not update the profile details.");
     }
   }
 
@@ -65,7 +67,9 @@ export default function Profile() {
               value={name}
               disabled={!changeDetail}
               onChange={onChange}
-              className={`mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out ${changeDetail && "bg-gray-200 focus:bg-gray-200" }`}
+              className={`mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out ${
+                changeDetail && "bg-gray-200 focus:bg-gray-200"
+              }`}
             />
 
             {/* Email Input */}
@@ -82,10 +86,9 @@ export default function Profile() {
                 Do you want to change your name?
                 <span
                   onClick={() => {
-                    changeDetail && onSubmit()
+                    changeDetail && onSubmit();
                     setChangeDetail((prevState) => !prevState);
                   }}
-                   
                   className="text-red-600 hover:text-red-800 transition duration-200 ease-in-out ml-1 cursor-pointer"
                 >
                   {changeDetail ? "Apply changes" : "Edit"}
@@ -100,6 +103,13 @@ export default function Profile() {
               </p>
             </div>
           </form>
+
+          <button type="submit" className="w-full bg-blue-600 text-white uppercase px-7 py-3 text-sm font-medium rounded shadow-md hover:bg-blue-700 transition duration-150 ease-in-out hover:shadow-lg active:bg-blue-800">
+            <Link to="/create-listing" className="flex justify-center items-center">
+              <FcHome className="mr-2 text-3xl bg-red-200 rounded-full p-1 border-2" />
+              Sell or Rent Home
+            </Link>
+          </button>
         </div>
       </section>
     </>
