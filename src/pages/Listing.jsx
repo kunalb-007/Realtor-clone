@@ -147,7 +147,10 @@ export default function Listing() {
 
           {listing.userRef !== auth.currentUser?.uid && !contactOwner && (
             <div className="mt-6">
-              <button onClick={() => setContactOwner(true)} className="px-7 py-3 bg-blue-600 text-white font-medium text-sm uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg w-full text-center transition duration-150 ease-in-out">
+              <button
+                onClick={() => setContactOwner(true)}
+                className="px-7 py-3 bg-blue-600 text-white font-medium text-sm uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg text-center transition duration-150 ease-in-out"
+              >
                 Contact Owner
               </button>
             </div>
@@ -157,7 +160,6 @@ export default function Listing() {
             <Contact userRef={listing.userRef} listing={listing} />
           )}
         </div>
-        <div className="bg-blue-600 w-full h-[200px] lg-[400px] z-10 overflow-x-hidden"></div>
       </div>
     </main>
   );
