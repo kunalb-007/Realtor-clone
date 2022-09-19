@@ -9,6 +9,7 @@ import {
   where,
 } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router";
 import { toast } from "react-toastify";
 import ListingItem from "../components/ListingItem";
 import Spinner from "../components/Spinner";
@@ -103,7 +104,7 @@ export default function Offers() {
           )}
         </>
       ) : (
-        <p>There are no current offers!!</p>
+        <p>There are no current {useParams.categoryName === "rent" ? "places for rent" : "places for sale"}</p>
       )}
     </div>
   );
