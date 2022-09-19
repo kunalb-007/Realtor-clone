@@ -30,6 +30,8 @@ export default function OAuth() {
         });
       }
 
+      toast.success("Login success!");
+
       navigate("/");
     } catch (error) {
       toast.error("Google Authentication Error")
